@@ -1,0 +1,26 @@
+spring:
+  profiles.active: dev
+
+--- #development profile = dev
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    schema: classpath:sql/init-schema.sql
+    data: classpath:sql/populate-data.sql
+
+server:
+  port: 5000
+  ssl:
+    enabled: false
+    key-store-type: PKCS12
+    key-store: classpath:ssl/miw_task_java.p12
+    key-store-password: miwtaskjava
+    key-alias: miwtaskjava
+
+logging:
+  file:
+    name: logs/miw-task-java.log

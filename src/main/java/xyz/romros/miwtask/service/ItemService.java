@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +18,12 @@ import xyz.romros.miwtask.repository.ItemRepository;
 public class ItemService {
 
   private final ItemRepository itemRepository;
+  private final ApplicationContext beans;
 
   @Autowired
-  public ItemService(ItemRepository itemRepository) {
+  public ItemService(ItemRepository itemRepository, ApplicationContext applicationContext) {
     this.itemRepository = itemRepository;
+    this.beans = applicationContext;
   }
 
   @Transactional(readOnly = true)
@@ -37,9 +40,12 @@ public class ItemService {
     if (!item.isPresent()) {
       return ResponseEntity.notFound().build();
     }
+
     final xyz.romros.miwtask.repository.domain.Item i = item.get();
-    Item object = new Item(i.getId(), i.getName(), i.getDescription(), i.getPrice());
-    return ResponseEntity.ok(object);
+
+    beans.getBean(ItemViewLogger.class).logAsync(i);
+
+    return ResponseEntity.ok(new Item(i.getId(), i.getName(), i.getDescription(), i.getPrice()));
   }
 
 }

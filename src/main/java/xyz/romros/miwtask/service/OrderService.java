@@ -49,6 +49,7 @@ public class OrderService {
 
     log.debug("Updating quantity for Item: {}, updated quantity = {}", item, updatedQuantity);
     item.setQuantity(updatedQuantity);
+    item.setPrice(itemRepository.findById(order.getItemId()).get().getPrice());
     itemRepository.save(item);
 
     return ResponseEntity.ok(ItemResponse.from(item));

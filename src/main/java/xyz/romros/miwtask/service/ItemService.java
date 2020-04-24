@@ -4,8 +4,6 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +26,15 @@ public class ItemService {
 
   @Transactional(readOnly = true)
   public ResponseEntity<List<Item>> findAllItems() {
-    final Stream<xyz.romros.miwtask.repository.domain.Item> items = StreamSupport.stream(itemRepository.findAll().spliterator(), false);
-
-    return ResponseEntity.ok(items.map(i -> new Item(i.getId(), i.getName(), i.getDescription(), i.getPrice()))//
-                                  .collect(toList()));
+    return ResponseEntity.ok(itemRepository.findAllWithAdjustedPrice()//
+                                           .stream()//
+                                           .map(i -> new Item(i.getId(), i.getName(), i.getDescription(), i.getPrice()))//
+                                           .collect(toList()));
   }
 
   @Transactional(readOnly = true)
   public ResponseEntity<Item> findOneItem(Integer itemId) {
-    final Optional<xyz.romros.miwtask.repository.domain.Item> item = itemRepository.findById(itemId);
+    final Optional<xyz.romros.miwtask.repository.domain.Item> item = itemRepository.findByIdWithAdjustedPrice(itemId);
     if (!item.isPresent()) {
       return ResponseEntity.notFound().build();
     }

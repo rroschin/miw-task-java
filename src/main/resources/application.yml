@@ -5,12 +5,17 @@ spring:
 
 spring:
   profiles: dev
+  
   datasource:
     driver-class-name: org.h2.Driver
     username: sa
     password: password
     schema: classpath:sql/init-schema.sql
     data: classpath:sql/populate-data.sql
+
+  h2:
+    console:
+      enabled: true
 
 server:
   port: 5000

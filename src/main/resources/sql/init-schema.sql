@@ -5,7 +5,8 @@ CREATE TABLE item
     id          INT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(255)  NOT NULL,
     description VARCHAR(1024) NOT NULL,
-    price       INT DEFAULT 0
+    price       INT DEFAULT 0,
+    quantity    INT DEFAULT 0
 );
 
 DROP TABLE IF EXISTS item_view_log;

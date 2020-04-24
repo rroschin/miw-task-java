@@ -11,7 +11,7 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
 
   //language=SQL
   String SELECT_ALL_WITH_ADJUSTED_PRICE = ""//
-                                          + "SELECT item.id, item.name, item.description, "//
+                                          + "SELECT item.id, item.name, item.description, item.quantity, "//
                                           + "(CASE WHEN COUNT(item.id) > 10 THEN item.price * 1.1 ELSE item.price END) AS price "//
                                           + "FROM item "//
                                           + "LEFT JOIN item_view_log ON item.id = item_view_log.item_id "//

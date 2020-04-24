@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.romros.miwtask.controller.response.Item;
+import xyz.romros.miwtask.controller.response.ItemResponse;
 import xyz.romros.miwtask.service.ItemService;
 
 @Slf4j
@@ -31,7 +31,7 @@ public class ItemController {
 
   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public ResponseEntity<List<Item>> getItems() {
+  public ResponseEntity<List<ItemResponse>> getItems() {
     try (MDCCloseable ignored = MDC.putCloseable("logEntry", randomUUID().toString())) {
       log.debug("GET Request to /item.");
       return this.itemService.findAllItems();
@@ -40,7 +40,7 @@ public class ItemController {
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public ResponseEntity<Item> getOneItem(@PathVariable("id") Integer itemId) {
+  public ResponseEntity<ItemResponse> getOneItem(@PathVariable("id") Integer itemId) {
     try (MDCCloseable ignored = MDC.putCloseable("logEntry", randomUUID().toString())) {
       log.debug("GET Request to /item/id with id = {}", itemId);
       return this.itemService.findOneItem(itemId);

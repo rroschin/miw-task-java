@@ -1,6 +1,8 @@
 package xyz.romros.miwtask.service;
 
 import static java.time.Instant.now;
+import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 import java.sql.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import xyz.romros.miwtask.repository.domain.Item;
 import xyz.romros.miwtask.repository.domain.ItemViewLog;
 
 @Component
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+@Scope(SCOPE_PROTOTYPE)
 public class ItemViewLogger {
 
   private final ItemViewLogRepository itemViewLogRepository;
@@ -26,7 +28,7 @@ public class ItemViewLogger {
   }
 
   @Async
-  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  @Transactional(propagation = REQUIRES_NEW)
   public void logAsync(Item i) {
     ItemViewLog itemViewLog = new ItemViewLog(null, i.getId(), Timestamp.from(now()));
     itemViewLogRepository.save(itemViewLog);

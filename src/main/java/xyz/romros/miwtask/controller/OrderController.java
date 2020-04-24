@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.romros.miwtask.controller.request.OrderRequest;
-import xyz.romros.miwtask.controller.response.ItemResponse;
 import xyz.romros.miwtask.controller.response.OrderResponse;
 import xyz.romros.miwtask.service.OrderService;
 

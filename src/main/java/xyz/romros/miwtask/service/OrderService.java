@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.romros.miwtask.controller.request.OrderRequest;
 import xyz.romros.miwtask.controller.response.ItemResponse;
+import xyz.romros.miwtask.controller.response.OrderResponse;
 import xyz.romros.miwtask.repository.ItemRepository;
 import xyz.romros.miwtask.repository.domain.Item;
 
@@ -25,7 +26,7 @@ public class OrderService {
   }
 
   @Transactional(propagation = REQUIRED)
-  public ResponseEntity<ItemResponse> placeOrder(OrderRequest order) {
+  public ResponseEntity<OrderResponse> placeOrder(OrderRequest order) {
     final Optional<Item> itemById = itemRepository.findByIdWithAdjustedPrice(order.getItemId());
     if (!itemById.isPresent()) {
       return ResponseEntity.notFound().build();
@@ -45,6 +46,8 @@ public class OrderService {
     }
 
     //"buy items = decrease item quantity"
+    final OrderResponse response = new OrderResponse(item.getId(), item.getName(), item.getDescription(), item.getPrice(), order.getQuantity());
+
     int updatedQuantity = item.getQuantity() - order.getQuantity();
 
     log.debug("Updating quantity for Item: {}, updated quantity = {}", item, updatedQuantity);
@@ -52,7 +55,7 @@ public class OrderService {
     item.setPrice(itemRepository.findById(order.getItemId()).get().getPrice());
     itemRepository.save(item);
 
-    return ResponseEntity.ok(ItemResponse.from(item));
+    return ResponseEntity.ok(response);
   }
 
 }

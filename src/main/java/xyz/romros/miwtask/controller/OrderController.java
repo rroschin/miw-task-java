@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.romros.miwtask.controller.request.OrderRequest;
 import xyz.romros.miwtask.controller.response.ItemResponse;
+import xyz.romros.miwtask.controller.response.OrderResponse;
 import xyz.romros.miwtask.service.OrderService;
 
 @Slf4j
@@ -31,7 +32,7 @@ public class OrderController {
 
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public ResponseEntity<ItemResponse> getItems(@RequestBody OrderRequest order) {
+  public ResponseEntity<OrderResponse> getItems(@RequestBody OrderRequest order) {
     try (MDCCloseable ignored = MDC.putCloseable("logEntry", randomUUID().toString())) {
       log.debug("POST Request to /order with body: {}", order);
       return this.orderService.placeOrder(order);

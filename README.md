@@ -32,8 +32,10 @@ From the main project directory execute:
 `docker run -p 5000:5000 --name=miw-task-java-app miw-task-java`
 
 ### How To Test
-After application is tarted it is available at this URL:
+- After the application is started it is available at this URL:
 http://localhost:5000/
+
+- _The application is also temporary available on Heroku at this URL:_ https://afternoon-garden-41772.herokuapp.com/
 
 _Note that if self-signed SSL certificate is used (ssl enabled in config), some browsers might show a warning_
 

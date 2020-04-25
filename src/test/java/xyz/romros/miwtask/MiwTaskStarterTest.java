@@ -13,7 +13,7 @@ import xyz.romros.miwtask.controller.OrderController;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles("test")
+@ActiveProfiles("unit")
 class MiwTaskStarterTest {
 
   @Autowired

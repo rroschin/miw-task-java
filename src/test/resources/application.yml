@@ -1,10 +1,10 @@
 spring:
-  profiles.active: test
+  profiles.active: unit
 
---- #test profile = test
+--- #unit profile = unit
 
 spring:
-  profiles: test
+  profiles: unit
 
   datasource:
     driver-class-name: org.h2.Driver

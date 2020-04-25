@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "95a75486-d070-4099-8c66-150ec227e444",
+		"name": "MIW-Task-Java",
+		"description": "MIW-Task-Java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c8d2ca-d81f-4a23-a815-949de0198540",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => { pm.response.to.have.status(200); });",
+							"pm.test(\"Result contains username\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.equal('mouse');",
+							"});",
+							"pm.test(\"Result contains masked password\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.password).to.equal('****');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"mouse\",\n\t\"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/registration",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"registration"
+					]
+				},
+				"description": "Registration"
+			},
+			"response": []
+		},
+		{
+			"name": "Authentication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a969cdf-896d-404a-841a-eab72cfe0357",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => { pm.response.to.have.status(200); });",
+							"pm.test(\"Result contains non-empty jwttoken\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('jwttoken');",
+							"    pm.expect(jsonData.jwttoken).to.not.equal('');",
+							"});",
+							"",
+							"pm.environment.set(\"customer_jwt_token\", pm.response.json().jwttoken);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "57f36af2-16a0-42b9-8398-d3ccba982a7e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"mouse\",\n\t\"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/authentication",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"authentication"
+					]
+				},
+				"description": "Authentication"
+			},
+			"response": []
+		},
+		{
+			"name": "All Items",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"name": "Content-Type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{customer_jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{DOMAIN}}/api/v1/item",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"item"
+					]
+				},
+				"description": "All Items"
+			},
+			"response": []
+		},
+		{
+			"name": "One Item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4200c43c-2e92-49ac-b7e2-bd54cc384688",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => { pm.response.to.have.status(200); });",
+							"pm.test(\"Result contains body of an Item\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('name');",
+							"    pm.expect(jsonData).to.have.property('description');",
+							"    pm.expect(jsonData).to.have.property('price');",
+							"    pm.expect(jsonData).to.have.property('quantity');",
+							"    pm.expect(jsonData.id).to.equal(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"name": "Content-Type",
+						"value": "Bearer {{customer_jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "Bearer {{customer_jwt_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/api/v1/item/1",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"item",
+						"1"
+					]
+				},
+				"description": "One Item"
+			},
+			"response": []
+		},
+		{
+			"name": "Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb7b852a-4ba5-474a-b1c3-a9cd38e2941e",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => { pm.response.to.have.status(200); });",
+							"pm.test(\"Result contains body of the Item\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('itemId');",
+							"    pm.expect(jsonData).to.have.property('itemName');",
+							"    pm.expect(jsonData).to.have.property('itemDescription');",
+							"    pm.expect(jsonData).to.have.property('itemPrice');",
+							"    pm.expect(jsonData).to.have.property('itemQuantity');",
+							"    pm.expect(jsonData.itemQuantity).to.equal(3);",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{customer_jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemId\": 1,\n    \"quantity\": 3,\n    \"amountProvided\": 400\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/api/v1/order",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"order"
+					]
+				},
+				"description": "Order"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -45,7 +45,10 @@ http://localhost:5000/actuator/health
 Project uses Spring Actuator
 
 #### Available API Endpoints:
-_*It is recommended to view API endpoints from a postman collection:_ **MIW-Task-Java.postman_collection.json**
+**It is recommended to view API endpoints from a postman collection:** `MIW-Task-Java.postman_collection.json`
+
+Postman environment files are also available (`MIW-heroku.postman_environment.json` and `MIW-localhost.postman_environment.json`)
+
 - /registration (POST) - Is used to register a new customer. A customer with username and password is required to access to rest of the API endpoints. There are 3 predefined customers available for use : dog/dog, cat/cat, bird/bird.
 - /authentication (POST) - Is used to authenticate an existing customer and obtain a jwt token that is used for subsequent API requests.
 - /api/v1/item (GET) - View the full list of available Items. This is a read-only request, has no influence on surge-price model. 

@@ -181,10 +181,6 @@
 						"name": "Content-Type",
 						"value": "Bearer {{customer_jwt_token}}",
 						"type": "text"
-					},
-					{
-						"key": "Content-Type",
-						"value": "Bearer {{customer_jwt_token}}"
 					}
 				],
 				"body": {

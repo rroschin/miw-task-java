@@ -1,3 +1,12 @@
+DROP TABLE IF EXISTS customer;
+
+CREATE TABLE customer
+(
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(256)  NOT NULL,
+    password VARCHAR(1024) NOT NULL
+);
+
 DROP TABLE IF EXISTS item;
 
 CREATE TABLE item

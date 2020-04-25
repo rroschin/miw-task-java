@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.romros.miwtask.controller.request.OrderRequest;
-import xyz.romros.miwtask.controller.response.ItemResponse;
 import xyz.romros.miwtask.controller.response.OrderResponse;
 import xyz.romros.miwtask.repository.ItemRepository;
 import xyz.romros.miwtask.repository.domain.Item;

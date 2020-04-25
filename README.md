@@ -49,9 +49,9 @@ Project uses Spring Actuator
 
 Postman environment files are also available (`MIW-heroku.postman_environment.json` and `MIW-localhost.postman_environment.json`)
 
-- /registration (POST) - Is used to register a new customer. A customer with username and password is required to access to rest of the API endpoints. There are 3 predefined customers available for use : dog/dog, cat/cat, bird/bird.
-- /authentication (POST) - Is used to authenticate an existing customer and obtain a jwt token that is used for subsequent API requests.
-- /api/v1/item (GET) - View the full list of available Items. This is a read-only request, has no influence on surge-price model. 
-- /api/v1/item/{id} (GET) - View one Item by its ID. This is a read-only request, but it also has side effects in the form of surge-price model. (Try to call a request of this type >10 times and check the output for the 'price' attribute.)
-- /api/v1/order (POST) - Is used to 'buy' some number of Items.
+- `/registration` (POST) - Is used to register a new customer. A customer with username and password is required to access to rest of the API endpoints. There are 3 predefined customers available for use : dog/dog, cat/cat, bird/bird.
+- `/authentication` (POST) - Is used to authenticate an existing customer and obtain a jwt token that is used for subsequent API requests.
+- `/api/v1/item` (GET) - View the full list of available Items. This is a read-only request, has no influence on surge-price model. 
+- `/api/v1/item/{id}` (GET) - View one Item by its ID. This is a read-only request, but it also has side effects in the form of surge-price model. (Try to call a request of this type >10 times and check the output for the 'price' attribute.)
+- `/api/v1/order` (POST) - Is used to 'buy' some number of Items.
 

@@ -1,0 +1,22 @@
+spring:
+  profiles.active: test
+
+--- #test profile = test
+
+spring:
+  profiles: test
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    schema: classpath:sql/init-schema.sql
+    data: classpath:sql/populate-data.sql
+
+jwt:
+  client-secret: eJFwX4l5lDKwITxGnxWIoDTjqJ4HHO0bkGRNwf5d0jHNPpABi3wMkivDBtDSaH6sYoStXihjPx10PjcxfT9v9w==
+  access-token-validitity-seconds: 1800
+
+logging:
+  file:
+    name: logs/miw-task-java.log
